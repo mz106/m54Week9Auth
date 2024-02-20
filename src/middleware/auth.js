@@ -44,13 +44,37 @@ const comparePass = async (req, res, next) => {
 
     // next()
 
+    const user = await User.findOne({ where: { username: req.body.username } });
+
+    const matched = await bcrypt.compare(
+      req.body.password,
+      user.dataValues.password
+    );
+
+    if (!matched) {
+      res.status(401).json({ message: "no!!!!!!!!!!!" });
+      return;
+    }
+    req.user = user;
     next();
   } catch (error) {
     res.status(501).json({ message: error.message, error: error });
   }
 };
 
+const emailValidation = async (req, res, next) => {
+  // validate email
+  next();
+};
+
+const passwordValdation = async (req, res, next) => {
+  // validate password
+  next();
+};
+
 module.exports = {
   hashPass: hashPass,
   comparePass: comparePass,
+  emailValidation: emailValidation,
+  passwordValdation: passwordValdation,
 };
