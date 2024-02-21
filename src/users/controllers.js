@@ -28,6 +28,22 @@ const login = async (req, res) => {
   try {
     // https://www.npmjs.com/package/jsonwebtoken
 
+    // Login does 2 things: manual login AND persistant login
+
+    // Find a way for login to check which type to use.
+
+    if (req.authCheck) {
+      const user = {
+        id: req.authCheck.id,
+        username: req.authCheck.username,
+      };
+
+      res
+        .status(201)
+        .json({ message: "persistant login successful", user: user });
+      return;
+    }
+
     const token = await jwt.sign({ id: req.user.id }, process.env.SECRET);
 
     console.log(token);

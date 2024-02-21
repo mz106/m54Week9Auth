@@ -1,12 +1,7 @@
 const { Router } = require("express");
 const userRouter = Router();
 
-const {
-  hashPass,
-  comparePass,
-  emailValidation,
-  passwordValdation,
-} = require("../middleware/auth");
+const { hashPass, comparePass, tokenCheck } = require("../middleware/auth");
 
 const { signupUser, getAllUsers, login, getOneUser } = require("./controllers");
 
@@ -28,8 +23,6 @@ userRouter.get("/users/getAllUsers", getAllUsers);
 
 userRouter.get("/users/getOneUser/:username", getOneUser);
 
-userRouter.get("/hello", async (req, res) => {
-  //gkhsgdk;fh
-});
+userRouter.get("/users/authCheck", tokenCheck, login);
 
 module.exports = userRouter;
