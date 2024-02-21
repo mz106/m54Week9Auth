@@ -19,31 +19,6 @@ const hashPass = async (req, res, next) => {
 
 const comparePass = async (req, res, next) => {
   try {
-    // https://www.npmjs.com/package/bcrypt
-
-    //compare passwords
-    // what we will need;
-
-    // plain text password (e.g. 'mypassword123) & the hashed password on the DB
-
-    // how do we get plain text password? send it in the request body
-
-    // how do we get the hashed password? find the user
-
-    // How do we find the user? by the username - sent in the request body
-
-    // we've found the user - then, use bcrypt to compare.
-
-    // const matched = use bcrypt.compare(plaintext, hashed password)
-
-    //or
-
-    // req.matched = use bcrypt.compare(plaintext, hashed password) (harder way)
-
-    // if matched false - response with code from unauthorised
-
-    // next()
-
     const user = await User.findOne({ where: { username: req.body.username } });
 
     const matched = await bcrypt.compare(
